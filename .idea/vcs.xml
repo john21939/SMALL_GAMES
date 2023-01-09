@@ -2,6 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/GAMES" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/snackgame" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/snackgame/rock_paper_scissors" vcs="Git" />
   </component>
