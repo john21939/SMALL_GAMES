@@ -34,20 +34,26 @@ def score(correct_guesses, guesses):
     print("---------------------")
     print("RESULTS:")
     print("---------------------")
-    print("ANSWERS: ", end="")
+    print("ANSWERS: ", end=" ")
     for i in questions:
-        print(questions.get(i),end="")
+        print(questions.get(i),end=" ")
     print()
 
-    print("GUESSES: ", end="")
+    print("GUESSES: ", end=" ")
     for i in guesses:
-        print(i, end="")
+        print(i, end=" ")
     print()
 
+    score = int((correct_guesses/len(questions))*100)
+    print(f"Your score is:{score}%")
 
 def play_again():
-    pass
-
+    response = input("Do you want to play again?(yes/no): ")
+    response = response.lower()
+    if response == "yes":
+        return True
+    else:
+        return False
 questions = {
     "Is Alonso a virgin?: ": "D",
     "What is Alonso's address?: ": "A",
@@ -63,3 +69,7 @@ options = [["A. NO", "B. IDK", "C. SURE", "D. YES"],
           ["A. MESS HIM UP INFRONT OF HIS MOM", "B. POP HIS TIRES", "C. SEND SHIT TO HIS HOUSE", "D. KNOCK HIM OUT WITH A CHAIR"]]
 
 new_game()
+
+while play_again():
+    new_game()
+print("BYEE LOSER")
