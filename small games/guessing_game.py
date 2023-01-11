@@ -1,6 +1,6 @@
 import random as r
 guesses = 0
-
+#gues gues gues s
 
 
 
