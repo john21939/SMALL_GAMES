@@ -4,7 +4,8 @@ import numpy as np
 import pygame as py
 ROW_COUNT = 6
 COLUMN_COUNT = 7
-
+BLUE = (0,0,255)
+BLACK = (0,0,0)
 
 def create_board():
     board = np.zeros((ROW_COUNT,COLUMN_COUNT))
@@ -48,8 +49,10 @@ def win(board,piece):
                 return True
 
 def draw_board(board):
-    pass
-
+    for c in range(COLUMN_COUNT):
+        for r in range(ROW_COUNT):
+            py.draw.rect(screen, BLUE, (c*SQUARESIZE, r*SQUARESIZE+ SQUARESIZE, SQUARESIZE,SQUARESIZE))
+            py.draw.circle(screen, BLACK, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)),RADIUS)
 
 
 board = create_board()
@@ -62,8 +65,12 @@ SQUARESIZE = 100
 width = COLUMN_COUNT * SQUARESIZE
 height = (ROW_COUNT+1) * SQUARESIZE
 size = (width,height)
-screen = py.display.set_mode(size)
+RADIUS = int(SQUARESIZE/2 - 5)
 
+
+screen = py.display.set_mode(size)
+draw_board(board)
+py.display.update()
 
 while not game_over:
 
@@ -72,7 +79,7 @@ while not game_over:
             sys.exit()
 
         if event.type == py.MOUSEBUTTONDOWN:
-            print("")
+            continue
              # asks for player 1 input
              # if turn == 0:
              #     col = int(input("Player 1 make your selection (0-6): "))
