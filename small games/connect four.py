@@ -1,11 +1,13 @@
 import sys
-
+import math
 import numpy as np
 import pygame as py
 ROW_COUNT = 6
 COLUMN_COUNT = 7
 BLUE = (0,0,255)
 BLACK = (0,0,0)
+RED = (255,0,0)
+YELLOW = (255,255,0)
 
 def create_board():
     board = np.zeros((ROW_COUNT,COLUMN_COUNT))
@@ -54,6 +56,13 @@ def draw_board(board):
             py.draw.rect(screen, BLUE, (c*SQUARESIZE, r*SQUARESIZE+ SQUARESIZE, SQUARESIZE,SQUARESIZE))
             py.draw.circle(screen, BLACK, (int(c*SQUARESIZE+SQUARESIZE/2), int(r*SQUARESIZE+SQUARESIZE+SQUARESIZE/2)),RADIUS)
 
+    for c in range(COLUMN_COUNT):
+        for r in range(ROW_COUNT):
+            if board[r][c] == 1:
+                py.draw.circle(screen, RED, (int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE  + SQUARESIZE / 2)), RADIUS)
+            elif board[r][c] == 2:
+                py.draw.circle(screen, YELLOW, (int(c * SQUARESIZE + SQUARESIZE / 2), height - int(r * SQUARESIZE  + SQUARESIZE / 2)), RADIUS)
+    py.display.update()
 
 board = create_board()
 print_board(board)
@@ -79,34 +88,37 @@ while not game_over:
             sys.exit()
 
         if event.type == py.MOUSEBUTTONDOWN:
-            continue
+            print(event.pos)
              # asks for player 1 input
-             # if turn == 0:
-             #     col = int(input("Player 1 make your selection (0-6): "))
-             #
-             #     if valid_location(board,col):
-             #         row = get_next_open_row(board,col)
-             #         drop_piece(board,row,col,1)
-             #
-             #         if win(board,1):
-             #             print("Player 1 wins!")
-             #             game_over = True
+            if turn == 0:
+                posx = event.pos[0]
+                col = int(math.floor(posx/SQUARESIZE))
+
+                if valid_location(board,col):
+                    row = get_next_open_row(board,col)
+                    drop_piece(board,row,col,1)
+
+                    if win(board,1):
+                        print("Player 1 wins!")
+                        game_over = True
              #
              #     #asks for player 2 input
-             # else:
-             #     col = int(input("Player 2 make your selection (0-6): "))
-             #
-             #     if valid_location(board,col):
-             #         row = get_next_open_row(board,col)
-             #         drop_piece(board,row,col,2)
-             #
-             #     if win(board, 2):
-             #         print("Player 2 wins!")
-             #         game_over = True
+            else:
+                posx = event.pos[0]
+                col = int(math.floor(posx / SQUARESIZE))
+
+                if valid_location(board,col):
+                    row = get_next_open_row(board,col)
+                    drop_piece(board,row,col,2)
+
+                if win(board, 2):
+                    print("Player 2 wins!")
+                    game_over = True
 
 
-             #          print_board(board)
+            print_board(board)
+            draw_board(board)
 
-                        #turn += 1
-                        #turn = turn % 2
+            turn += 1
+            turn = turn % 2
 
