@@ -82,6 +82,7 @@ RADIUS = int(SQUARESIZE/2 - 5)
 screen = py.display.set_mode(size)
 draw_board(board)
 py.display.update()
+myfont = py.font.SysFont("monospace",75)
 
 while not game_over:
 
@@ -99,6 +100,7 @@ while not game_over:
         py.display.update()
 
         if event.type == py.MOUSEBUTTONDOWN:
+            pygame.draw.rect(screen, BLACK, (0, 0, width, SQUARESIZE))
             print(event.pos)
              # asks for player 1 input
             if turn == 0:
@@ -110,7 +112,8 @@ while not game_over:
                     drop_piece(board,row,col,1)
 
                     if win(board,1):
-                        print("Player 1 wins!")
+                        label = myfont.render("Player 1 Wins!", 1,RED)
+                        screen.blit(label, (4,10))
                         game_over = True
              #
              #     #asks for player 2 input
@@ -123,7 +126,8 @@ while not game_over:
                     drop_piece(board,row,col,2)
 
                 if win(board, 2):
-                    print("Player 2 wins!")
+                    label = myfont.render("Player 2 Wins!", 1,YELLOW)
+                    screen.blit(label, (4,10))
                     game_over = True
 
 
@@ -132,4 +136,6 @@ while not game_over:
 
             turn += 1
             turn = turn % 2
+            if game_over:
+                py.time.wait(2000)
 
