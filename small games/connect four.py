@@ -2,6 +2,8 @@ import sys
 import math
 import numpy as np
 import pygame as py
+import pygame.draw
+
 ROW_COUNT = 6
 COLUMN_COUNT = 7
 BLUE = (0,0,255)
@@ -86,6 +88,15 @@ while not game_over:
     for event in py.event.get():
         if event.type == py.QUIT:
             sys.exit()
+
+        if event.type == py.MOUSEMOTION:
+            pygame.draw.rect(screen,BLACK, (0,0, width,SQUARESIZE))
+            posx = event.pos[0]
+            if turn == 0:
+                py.draw.circle(screen, RED, (posx, int(SQUARESIZE/2)), RADIUS)
+            else:
+                py.draw.circle(screen, YELLOW, (posx, int(SQUARESIZE / 2)), RADIUS)
+        py.display.update()
 
         if event.type == py.MOUSEBUTTONDOWN:
             print(event.pos)
